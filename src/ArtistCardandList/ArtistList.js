@@ -2,18 +2,24 @@
 
 import React from 'react';
 import AppContext from '../AppContext';
+import './artistlist.css';
+import ArtistCard from './ArtistCard';
 
 class ArtistList extends React.Component {
     static contextType = AppContext;
 
     render() {
+
         const list = 
         this.context.artistOptions 
         ?
         <div className='artist-list'>
-            for each loop with artist cards
+            Did you mean...
+            <ArtistCard />
             </div>
-        : ''
+        : 
+        <></>
+
         return (
             list
         )

@@ -1,0 +1,27 @@
+.artist-card {
+    border: 1px solid black;
+    display: flex;
+    padding: 10px;
+}
+
+.name-genre {
+    flex-direction: column;
+}
+
+.result-page .artist-card {
+    flex-direction: column;
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+}
+
+.result-page .artist-card img {
+    width: 100%;
+}
+
+.artist-list .artist-card {
+    width: 50%;
+    flex-direction: row;
+    margin: 10px auto;
+    text-align: left;
+}

@@ -5,8 +5,8 @@ class PageNotFound extends React.Component {
   render() {
     return (
       <div className='notfound-page'>
-          Sorry! We couldn't find the page you were looking for.
-          Wanna try again?
+          <p>Sorry! We couldn't find the page you were looking for.</p>
+          <p>Wanna try again?</p>
           <SearchForm />
       </div>
     );

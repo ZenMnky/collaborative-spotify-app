@@ -1,1 +1,0 @@
-// returns small lil card div with image and text below it. each card will ideally be a link

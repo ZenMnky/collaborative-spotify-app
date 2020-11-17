@@ -4,6 +4,12 @@ form button {
 }
 
 fieldset {
-    width: 50%;
+    width: 85%;
     margin: auto;
+}
+
+@media all and (min-width: 600px) {
+    fieldset {
+        width: 50%;
+    }
 }

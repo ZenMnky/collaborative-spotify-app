@@ -1,0 +1,10 @@
+.result-card {
+    margin: 1%;
+    flex: 1;
+    padding: 1%;
+    border: 1px solid black;
+}
+
+.result-card img {
+    width: 100%;
+}
