@@ -1,0 +1,17 @@
+import React from 'react';
+import './searchpage.css';
+import SearchForm from './SearchForm';
+import ArtistList from '../ArtistCardList/ArtistList';
+
+class SearchPage extends React.Component {
+  render() {
+    return (
+      <div className='search-page'>
+          <SearchForm />
+          <ArtistList />
+      </div>
+    );
+  }
+}
+
+export default SearchPage;

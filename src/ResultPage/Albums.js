@@ -1,0 +1,1 @@
+// returns div with the artists recent albums (limit 5?) using results cards

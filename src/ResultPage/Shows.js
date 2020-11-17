@@ -1,0 +1,1 @@
+// DON'T THINK WE CAN DO THIS :-( shows are searched by singular id, not by artist id

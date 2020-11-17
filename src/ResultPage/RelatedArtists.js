@@ -1,0 +1,1 @@
+// returns div with the related artists (limit 5?) using results cards

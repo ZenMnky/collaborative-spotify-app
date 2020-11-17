@@ -1,0 +1,9 @@
+form button {
+    display: block;
+    margin: 10px auto;
+}
+
+fieldset {
+    width: 50%;
+    margin: auto;
+}
