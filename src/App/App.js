@@ -3,6 +3,7 @@ import React from 'react';
 import {Route, BrowserRouter, Switch} from 'react-router-dom';
 
 //styles
+import 'normalize.css';
 import './App.css';
 
 //components
