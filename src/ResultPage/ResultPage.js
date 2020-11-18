@@ -3,7 +3,7 @@ import ArtistCard from '../ArtistCardandList/ArtistCard';
 import TopTracks from './TopTracks';
 import Albums from './Albums';
 import RelatedArtists from './RelatedArtists';
-import './resultpage.css';
+import './css/resultpage.css';
 
 class ResultsPage extends React.Component {
   render() {

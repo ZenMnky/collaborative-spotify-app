@@ -1,5 +1,5 @@
 import React from 'react';
-import './searchpage.css';
+import './css/searchpage.css';
 import SearchForm from './SearchForm';
 import ArtistList from '../ArtistCardandList/ArtistList';
 

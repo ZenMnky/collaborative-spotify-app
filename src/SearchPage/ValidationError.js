@@ -1,5 +1,5 @@
 import React from 'react';
-import './validationerror.css';
+import './css/validationerror.css';
 
 class ValidationError extends React.Component {
     render() {

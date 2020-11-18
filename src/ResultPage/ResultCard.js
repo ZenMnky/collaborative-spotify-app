@@ -1,7 +1,7 @@
 // returns small lil card div with image and text below it. each card will ideally be a link
 
 import React from 'react';
-import './resultcard.css';
+import './css/resultcard.css';
 
 class ResultCard extends React.Component {
     render() {

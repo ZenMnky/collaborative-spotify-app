@@ -2,7 +2,7 @@
 // possibly add artist suggestions
 
 import React from 'react';
-import './noresults.css';
+import './css/noresults.css';
 
 class NoResults extends React.Component {
   render() {

@@ -1,8 +1,8 @@
 // returns LIST of artist cards, which are clickable. clicking triggers subsequent fetch calls (artist, albums, shows) using id
 
 import React from 'react';
-import AppContext from '../AppContext';
-import './artistlist.css';
+import AppContext from '../Context/AppContext';
+import './css/artistlist.css';
 import ArtistCard from './ArtistCard';
 
 class ArtistList extends React.Component {

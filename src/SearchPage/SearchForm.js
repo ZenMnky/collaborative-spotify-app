@@ -1,7 +1,7 @@
 // returns form and handles our initial FETCH to get artist lists
 
 import React from 'react';
-import './searchform.css';
+import './css/searchform.css';
 import ValidationError from './ValidationError';
 
 class SearchForm extends React.Component {

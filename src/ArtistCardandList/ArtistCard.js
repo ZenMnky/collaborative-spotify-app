@@ -2,7 +2,7 @@
 // attach id to each card for search purposes (will not make a difference in resultspage view)
 
 import React from 'react';
-import './artistcard.css'
+import './css/artistcard.css'
 
 class ArtistCard extends React.Component {
     render() {

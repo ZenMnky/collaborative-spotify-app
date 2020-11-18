@@ -1,7 +1,7 @@
 // returns div with the artists recent albums (limit 5?) using results cards
 
 import React from 'react';
-import AppContext from '../AppContext';
+import AppContext from '../Context/AppContext';
 import ResultCard from './ResultCard';
 
 
