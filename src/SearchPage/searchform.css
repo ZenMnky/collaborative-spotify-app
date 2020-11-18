@@ -1,0 +1,15 @@
+form button {
+    display: block;
+    margin: 10px auto;
+}
+
+fieldset {
+    width: 85%;
+    margin: auto;
+}
+
+@media all and (min-width: 600px) {
+    fieldset {
+        width: 50%;
+    }
+}

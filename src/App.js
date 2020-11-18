@@ -1,25 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import {Route, BrowserRouter, Switch} from 'react-router-dom';
+import AppContext from './AppContext';
+import Header from './AreaComponents/Header';
+import Main from './AreaComponents/Main';
+import Footer from './AreaComponents/Footer';
+import ResultsPage from './ResultPage/ResultPage';
+import SearchPage from './SearchPage/SearchPage';
+import PageNotFound from './SearchPage/PageNotFound';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+      <div className="App">
+
+        <Header />
+
+        <Main>
+          <Switch>
+          <Route exact path='/' component={SearchPage} />
+          <Route path='/result/:artistName' component={ResultsPage} />
+          <Route component={PageNotFound} />
+          </Switch>
+        </Main>
+
+        <Footer />
+
+      </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
