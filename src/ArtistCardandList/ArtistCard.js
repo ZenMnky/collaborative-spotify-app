@@ -6,9 +6,10 @@ import './css/artistcard.css'
 
 class ArtistCard extends React.Component {
     render() {
-        
+
         return (
-            <div className='artist-card'>
+            <div onClick={() => this.handleClick}
+            className='artist-card'>
 
             <img src='https://gdurl.com/0yhK' width='100px' alt='artist-card-img' />
 
