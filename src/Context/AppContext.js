@@ -1,246 +1,157 @@
-import React from 'react';
-
-//  👋 hi Jenna
-
-
-const AppContext = React.createContext ({
-    artistOptions: null
-})
-
-export default AppContext;
-
-
-
-/*=============================================
-=            IMPORT BELOW            =
-=============================================*/
 import React, {Component} from 'react';
 import cuid from 'cuid';
 import PropTypes from 'prop-types';
+import BASE64 from '../config.js'
 
 export const AppContext = React.createContext();
 
 /**
- * API Endpoints
+ * API
  * API Docs: 
  * SEARCH FOR ITEM: https://developer.spotify.com/documentation/web-api/reference/search/search/
- * GET ARTIST : https://developer.spotify.com/console/get-artist/?id=0OdUWJ0sBjDrqHygGUXeCF
+ * GET ARTIST : https://developer.spotify.com/console/artists/
  */
 
-const API_BASE = 'https://api.spotify.com/v1/';
+const API_BASE = 'https://api.spotify.com/v1';
+const API_TOKEN_URL = 'https://accounts.spotify.com/api/token';
+let artistQuery = 'cake';
 
-// fetch for search = https://api.spotify.com/v1/search?q=bob&type=artist&offset=20&limit=2
-//fetch for artist details https://api.spotify.com/v1/artists/{id}
+// fetch for search = {API_BASE}/search?q=bob&type=artist&offset=20&limit=2
+//fetches for artist = {API_BASE}/artists/{id}
+// 	{API_BASE}/artists/{id}/related-artists
+// 	{API_BASE}/artists/{id}/top-tracks?m
+// 	{API_BASE}/artists/{id}/albums
+
+// "Authorization: Bearer"
+
+
 export class Provider extends Component {
     constructor(props){
         super(props);
         this.state={
-          artistResults: [],
-          error: null
+          access_token: '',
+          artistResults: [], //array of objects
+          error: null,
+          artistOptions: null
         }
       }
 
-      /*=============================================
+      //🚧 CONSTRUCTION ZONE 🚧
+
+      //STEP 1
+      //obtain authorization from spotify
+      //receive object, which includes our token
+      //store token in state
+      
+      //token expires in 3600 seconds
+      //set timer to make a call for a new auth token
+      //replace with new token
+      
+      handleGetAuthToken = () => {
+        fetch(API_TOKEN_URL, {
+          method: 'POST',
+          headers: {
+            'Accept' : 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Authorization': `Basic ${BASE64}`
+            },
+          body: {
+            'grant_type': 'client_credentials'
+          }
+        })
+        .then(res => {
+          //if not okay, throw error
+          if(!res.ok){
+            throw new Error(res.status) 
+          }
+          //other wise, return parsed response
+          return res.json();
+        })
+        //update state
+        .then(tokenResults => {
+            this.setState({ 
+                access_token: 'tokenResults.access_token '
+            });
+            // setTimeout(handleGetAuthToken(), 3600);
+        })
+        //catch errors
+        .catch(error => this.setState({ error }))
+
+      }
+
+      //STEP 2
+      //Party : make calls all day (well, for 1 hour, untill we need to get a new token)
+
+
+      handleSearchArtist = () => {
+        //Initial Call
+      //using the search endpoint and a given query,
+      // fetch data (array of objects) and store in local state (in artistResults)
+      
+        fetch(API_BASE + `/search?q=${artistQuery}&type=artist&offset=20&limit=2`, {
+          method: 'GET',
+          headers: {
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${BASE64}`
+          }
+        })
+        .then(res => {
+          //if not okay, throw error
+          if(!res.ok){
+            throw new Error(res.status)
+          }
+          //other wise, return parsed response
+          return res.json();
+        })
+        //update state
+        .then(artistResults => this.setState({ artistResults }))
+        //catch errors
+        .catch(error => this.setState({ error }))
+        
+        //When an artist is slected from the card options
+        //Make a fetch for the remaining data, based on the artist URI
+            //top tracks
+            //related artists
+            //albums
+    
+      
+      //🚧 CONSTRUCTION ZONE 🚧
+      }
+      
+       /*=============================================
       =            State Modifiers            =
       =============================================*/
-      
-      
+      // addFolder = (folder) => {
+      //   this.setState({
+      //     folders: [...this.state.folders, folder]
+      //   })
+      // }
+
+      // addNote = (note) => {
+      //   this.setState({
+      //     notes: [...this.state.notes, note]          
+      //   })
+      // }
+
       
       /*=====  End of State Modifiers  ======*/
-      
-      
-      addFolder = (folder) => {
-        this.setState({
-          folders: [...this.state.folders, folder]
-        })
-      }
-
-      addNote = (note) => {
-        this.setState({
-          notes: [...this.state.notes, note]          
-        })
-      }
-
-      handleDeleteNote = (id) => {
-
-        this.setState(prevState => {
-          return {
-            notes: prevState.notes.filter(note => note.id !== id)
-          }        
-        })
-      }
-
-
-      
-      /**
-       * deleteNoteRequest
-       * Delete note from API and local state
-       * @param {number} noteId
-       * @param {function} deleteCallBack - uses the noteId to delete note from local staet 
-       */
-      deleteNoteRequest = (noteId, deleteCallBack) => {
-        fetch(API_ENDPOINT + `/notes/${noteId}`, {
-          method: 'DELETE',
-          headers: {
-            'content-type': 'application/json'
-          }
-        })
-        .then(res => {
-          if(!res.ok){
-            return res.json().then(error => {throw error})
-          }
-          return res.json();
-        })
-        .then(data => {
-          //remove from local state
-          deleteCallBack(noteId)
-        })
-        .catch(error => {
-          console.error(error)
-        })
-      }
-
-      /**
-       * addFolderRequest
-       * Adds new Folder to API & Local State
-       * @param {string} folderName 
-       * @param {function} addFolderCB - add folder object to local storage
-       */
-      addFolderRequest = (folderName, addFolderCB) => {
-        //construct body data
-        let newFolder = {
-          name: folderName,
-          id: cuid() //generates random id
-        }
-
-        fetch(API_ENDPOINT + '/folders', {
-          method: 'POST',
-          body: JSON.stringify(newFolder),
-          headers: {
-            'content-type': 'application/json'
-          }
-        })
-        .then(res => {
-          if(!res.ok){
-            return res.json().then(error => {throw error})
-          }
-          return res.json();
-        })
-        .then(data => {
-          //update local state
-          addFolderCB(newFolder)
-        })
-        .catch(error => {
-          console.error(error)
-        })
-      }
-
-      /**
-       * addNoteRequest
-       * Adds new Folder to API & Local State
-       * @param {string} title 
-       * @param {string} content
-       * @param {string} folder - folderId
-       * 
-       */
-      addNoteRequest = (title, content, folder) => {
-        //construct body data
-
-        let date = new Date();
-        let isoDate = date.toISOString();
-
-        let newNote = {
-          content: content,
-          folderId: folder,
-          id: cuid(), //generates random id
-          modified: isoDate,
-          name: title
-          
-        }
-
-        fetch(API_ENDPOINT + '/notes', {
-          method: 'POST',
-          body: JSON.stringify(newNote),
-          headers: {
-            'content-type': 'application/json'
-          }
-        })
-        .then(res => {
-          if(!res.ok){
-            return res.json().then(error => {throw error})
-          }
-          return res.json();
-        })
-        .then(data => {
-          //update local state
-          this.addNote(newNote)
-        })
-        .catch(error => {
-          console.error(error)
-        })
-      }
-    
-    
 
     componentDidMount = () => {
-    
-      /*=============================================
-      =            FETCH DATA            =
-      =============================================*/
-      
-      // FETCH FOLDERS
-      fetch(API_ENDPOINT + '/folders', {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-      .then(res => {
-        //if not okay, throw error
-        if(!res.ok){
-          throw new Error(res.status)
-        }
-        //other wise, return parsed response
-        return res.json();
         
-      })
-      //update state
-      .then(folderData => this.setState({folders: folderData}))
-      //catch errors
-      .catch(error => this.setState({ error }))
-      
-
-      // FETCH NOTES
-      fetch(API_ENDPOINT + '/notes', {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-      .then(res => {
-        if(!res.ok){
-          throw new Error(res.status)
-        }
-        return res.json();
-      })
-      .then(noteData => {
-        this.setState({notes: noteData})
-      })
-      .catch(error => this.setState({ error }))
-      /*=====  End of FETCH DATA  ======*/
-      
     }
-      
+          
 
     render(){
         const contextValues = {
             ...this.state,
-            handleDeleteNote: this.handleDeleteNote,
-            deleteNoteRequest: this.deleteNoteRequest,
-            addFolder: this.addFolder,
-            addFolderRequest: this.addFolderRequest,
-            addNoteRequest: this.addNoteRequest,
-            addNote: this.addNote,
+            handleSearchArtist: this.handleSearchArtist,
+            handleGetAuthToken: this.handleGetAuthToken,
+        //     deleteNoteRequest: this.deleteNoteRequest,
+        //     addFolder: this.addFolder,
+        //     addFolderRequest: this.addFolderRequest,
+        //     addNoteRequest: this.addNoteRequest,
+        //     addNote: this.addNote,
             testContext: () => {console.log('context test!')}
         }
 

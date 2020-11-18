@@ -31,6 +31,7 @@ validateSearch = () => {
     const errorMessage = this.validateSearch();
 
     return (
+        //call search request on submit
       <form onSubmit={() => alert(this.state.searchTerm)}>
           <fieldset>
 
