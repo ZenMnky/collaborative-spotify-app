@@ -29,7 +29,7 @@ export const AppContext = React.createContext();
 
 const API_BASE = 'https://api.spotify.com/v1/';
 
-// fetch for search = search
+// fetch for search = https://api.spotify.com/v1/search?q=bob&type=artist&offset=20&limit=2
 //fetch for artist details https://api.spotify.com/v1/artists/{id}
 export class Provider extends Component {
     constructor(props){
