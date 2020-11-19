@@ -3,8 +3,10 @@ import ArtistCard from '../ArtistCardandList/ArtistCard';
 import TopTracks from './TopTracks';
 import Albums from './Albums';
 import RelatedArtists from './RelatedArtists';
-import './css/resultpage.css';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import {AppContext} from '../Context/AppContext';
+
+import './css/resultpage.css';
 
 class ResultsPage extends React.Component {
 
@@ -16,20 +18,31 @@ class ResultsPage extends React.Component {
 
     return (
       <div className='result-page'>
-
+        <ErrorBoundary>
           <ArtistCard 
           name={artist.name}
           genre={artist.genres[0]}
-          image={artist.images.length > 0 ? 
-              artist.images[0].url 
-              : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}/>
-
+          image={artist.images.length > 0 
+              ? artist.images[0].url 
+              : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}
+            />
+        </ErrorBoundary>
           <div className='result-details'>
-          <TopTracks />
-          <Albums />
-          <RelatedArtists />
+            <ErrorBoundary>
+              <TopTracks />
+            </ErrorBoundary>
+            
+            
+            <ErrorBoundary>
+              <Albums />
+            </ErrorBoundary>
+            
+            <ErrorBoundary>
+              <RelatedArtists />  
+            </ErrorBoundary>
+  
           </div>
-          
+
       </div>
     );
   }

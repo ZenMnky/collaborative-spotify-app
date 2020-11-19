@@ -75,8 +75,9 @@ export class Provider extends Component {
         })
         //update state
         .then(tokenResults => {
+          console.log(tokenResults)
             this.setState({ 
-                access_token: 'tokenResults.access_token '
+                access_token: tokenResults.access_token
             });
             // setTimeout(handleGetAuthToken(), 3600);
         })
@@ -99,7 +100,7 @@ export class Provider extends Component {
           headers: {
             'Accept' : 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer BQC7dPxqihhlma9dbD19d2bFIVaf_zaTy21Xdjntdj2gkntotKm_s3NW-1tC7HcygUIeZ1ckPHmnHmkqums'
+            'Authorization': `Bearer ${this.state.access_token}`
           }
         })
         .then(res => {

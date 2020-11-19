@@ -17,6 +17,7 @@ class ArtistList extends React.Component {
             return <ArtistCard
                 handleClick={() => alert(artist.id)} 
                 //^ call the fn() to fetch to rest of the artist info, using artist id
+                key={artist.id}
                 id={artist.id}
                 name={artist.name}
                 genre={artist.genres[0]}

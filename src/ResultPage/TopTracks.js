@@ -16,6 +16,7 @@ class TopTracks extends React.Component {
                     target='_blank'
                     rel="noreferrer">
                         <ResultCard
+                            key={idx}
                             name={result.name}
                             image={result.album.images.length > 0 ?
                                 result.album.images[0].url

@@ -33,6 +33,7 @@ class Albums extends React.Component {
             return(
                 <a href={externalURL} target='_blank'>
                     <AlbumResultCard 
+                        key={albumTitle}
                         image={albumImg} 
                         name={albumTitle} 
                         externalURL={externalURL}

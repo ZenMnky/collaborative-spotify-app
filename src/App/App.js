@@ -15,12 +15,12 @@ import ResultsPage from '../ResultPage/ResultPage';
 import SearchPage from '../SearchPage/SearchPage';
 import PageNotFound from '../SearchPage/PageNotFound';
 
+
 class App extends React.Component {
   static contextType = AppContext;
 
   componentDidMount() {
     this.context.handleGetAuthToken();
-    this.context.handleSearchArtist();
     console.log('app did mount');
   }
 
@@ -29,7 +29,6 @@ class App extends React.Component {
     console.log(this.context);
 
     return (
-      //hi jenna
       <div className="App">
         <Header />
       

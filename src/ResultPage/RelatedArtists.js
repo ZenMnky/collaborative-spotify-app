@@ -16,6 +16,7 @@ class RelatedArtists extends React.Component {
                     target='_blank'
                     rel="noreferrer">
                         <ResultCard
+                            key={idx}
                             name={result.name}
                             image={result.images.length > 0 ?
                                 result.images[0].url
