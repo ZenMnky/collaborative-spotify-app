@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import BASE64 from '../config.js'
 import { dummyItems } from './dummyItems'; //artist options
+import { dummyAlbums } from './dummyAlbums';
+import { dummyTopTracks } from './dummyTopTracks';
+import { dummyRelatedArtists } from './dummyRelatedArtists';
 
 export const AppContext = React.createContext();
 
@@ -16,6 +19,7 @@ export const AppContext = React.createContext();
 const API_BASE = 'https://api.spotify.com/v1';
 const API_TOKEN_URL = 'https://accounts.spotify.com/api/token';
 let artistQuery = 'cake';
+const colterWallID = '3xYXYzm9H3RzyQgBrYwIcx';
 
 // fetch for search = {API_BASE}/search?q=bob&type=artist&offset=20&limit=2
 //fetches for artist = {API_BASE}/artists/{id}
@@ -33,7 +37,10 @@ export class Provider extends Component {
           access_token: 'BQC7dPxqihhlma9dbD19d2bFIVaf_zaTy21Xdjntdj2gkntotKm_s3NW-1tC7HcygUIeZ1ckPHmnHmkqums',
           artistResults: [], //array of objects
           error: null,
-          artistOptions: dummyItems
+          artistOptions: dummyItems,
+          artistAlbums: dummyAlbums.items,
+          artistTopTracks: dummyTopTracks,
+          artistRelatedArtists: dummyRelatedArtists
         }
       }
 

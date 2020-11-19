@@ -9,6 +9,14 @@
     flex: 2.5;
 }
 
+.result-details a {
+    text-decoration: none;
+}
+
+.result-details a:hover {
+    color: orange;
+}
+
 .details-slice {
     margin: 1%;
     border: 1px solid black;
@@ -20,7 +28,7 @@
 .details-slice h3 {
     font-size: 16px;
     padding: 0;
-    margin: 0;
+    margin: 0 7px 0 0;
 }
 
 @media all and (min-width:600px) {

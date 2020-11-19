@@ -1,23 +1,51 @@
 // returns div with the artists recent albums (limit 5?) using results cards
 
+/**
+ * NOTE:
+ * When we do a fetch for albums, we'll want to specify the 'market': market=US
+ * Otherwise, we'll get duplicate album listings
+ * --Basically, there tends to be albums specific to New Zeland :-\
+ * 
+ * I'll update the dummy data with such a call.....
+ * 
+ */
+
+
+
 import React from 'react';
 import {AppContext} from '../Context/AppContext';
-import ResultCard from './ResultCard';
-
+import AlbumResultCard from './AlbumResultCard';
+import cuid from 'cuid';
 
 class Albums extends React.Component {
     static contextType = AppContext;
 
     render() {
-   // let artists = loop through and create more resultcards
+        let { artistAlbums } = this.context;
+        
+        //for each album stored in context, 
+        // grab the album image and title and pass to <AlbumResultCard />
+        let resultsArray = artistAlbums.map(album => {
+            let albumImg = album.images[0].url;
+            let albumTitle = album.name;
+            let externalURL = album.external_urls.spotify;
+
+            return(
+                <a href={externalURL} target='_blank'>
+                    <AlbumResultCard 
+                        image={albumImg} 
+                        name={albumTitle} 
+                        externalURL={externalURL}
+                    />
+                </a>
+            )
+        })
+
+        
         return (
-            <div className='details-slice'>
+            <div key={cuid()} className='details-slice'>
                 <h3>ALBUMS</h3> 
-                <ResultCard />
-                <ResultCard />
-                <ResultCard />
-                <ResultCard />
-                <ResultCard />
+                {resultsArray}
             </div>
         )
     }
