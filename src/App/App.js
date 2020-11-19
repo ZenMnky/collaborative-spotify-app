@@ -20,12 +20,16 @@ class App extends React.Component {
 
   componentDidMount() {
     this.context.handleGetAuthToken();
+    this.context.handleSearchArtist();
     console.log('app did mount');
   }
 
   render() {
+
+    console.log(this.context);
+
     return (
-      
+      //hi jenna
       <div className="App">
         <Header />
       

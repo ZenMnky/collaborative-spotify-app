@@ -6,16 +6,16 @@ import './css/artistcard.css'
 
 class ArtistCard extends React.Component {
     render() {
-
+        const {name, id, genre, image} = this.props;
         return (
-            <div onClick={() => this.handleClick}
+            <div key={id} onClick={() => this.handleClick}
             className='artist-card'>
 
-            <img src='https://gdurl.com/0yhK' width='100px' alt='artist-card-img' />
+            <img src={image} width='100px' alt='artist-card-img' />
 
             <div className='name-genre'>
-            <p>Salem</p>
-            <p>Hard Rock</p>
+            <p>{name}</p>
+            <p><i>{genre}</i></p>
             </div>
 
             </div>

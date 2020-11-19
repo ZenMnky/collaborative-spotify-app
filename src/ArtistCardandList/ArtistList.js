@@ -14,13 +14,15 @@ class ArtistList extends React.Component {
         const artists = artistOptions 
         ?
         artistOptions.map(artist => {
-            <ArtistCard
-                handleClick={() => alert('this is the artist!')} 
+            return <ArtistCard
+                handleClick={() => alert(artist.id)} 
                 //^ call the fn() to fetch to rest of the artist info, using artist id
                 id={artist.id}
                 name={artist.name}
-                genre={artist.genre}
-                image={artist.image}
+                genre={artist.genres[0]}
+                image={artist.images.length > 0 ? 
+                    artist.images[0].url 
+                    : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}
             />
         }) : '';
 

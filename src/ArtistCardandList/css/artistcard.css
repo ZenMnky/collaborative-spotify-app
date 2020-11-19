@@ -4,6 +4,10 @@
     padding: 10px;
 }
 
+.artist-card p {
+    padding-left: 10px;
+}
+
 .name-genre {
     flex-direction: column;
 }

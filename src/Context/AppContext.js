@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import cuid from 'cuid';
+// import cuid from 'cuid';
 import PropTypes from 'prop-types';
 import BASE64 from '../config.js'
+import { dummyItems } from './dummyItems'; //artist options
 
 export const AppContext = React.createContext();
 
@@ -29,10 +30,10 @@ export class Provider extends Component {
     constructor(props){
         super(props);
         this.state={
-          access_token: '',
+          access_token: 'BQC7dPxqihhlma9dbD19d2bFIVaf_zaTy21Xdjntdj2gkntotKm_s3NW-1tC7HcygUIeZ1ckPHmnHmkqums',
           artistResults: [], //array of objects
           error: null,
-          artistOptions: null
+          artistOptions: dummyItems
         }
       }
 
@@ -91,7 +92,7 @@ export class Provider extends Component {
           headers: {
             'Accept' : 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${BASE64}`
+            'Authorization': 'Bearer BQC7dPxqihhlma9dbD19d2bFIVaf_zaTy21Xdjntdj2gkntotKm_s3NW-1tC7HcygUIeZ1ckPHmnHmkqums'
           }
         })
         .then(res => {
@@ -103,11 +104,13 @@ export class Provider extends Component {
           return res.json();
         })
         //update state
-        .then(artistResults => this.setState({ artistResults }))
+        .then(artistResults => {
+          this.setState({ artistResults })
+        })
         //catch errors
         .catch(error => this.setState({ error }))
         
-        //When an artist is slected from the card options
+        //When an artist is selected from the card options
         //Make a fetch for the remaining data, based on the artist URI
             //top tracks
             //related artists
