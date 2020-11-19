@@ -55,9 +55,7 @@ export class Provider extends Component {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'Authorization': `Basic ${BASE64}`
             },
-          body: {
-            'grant_type': 'client_credentials'
-          }
+            body: 'grant_type=client_credentials'
         })
         .then(res => {
           //if not okay, throw error
