@@ -9,7 +9,8 @@ class TopTracks extends React.Component {
     static contextType = AppContext;
 
     render() {
-        let results = this.context.artistTopTracks.map((result, idx) => {
+        let results = this.context.artistTopTracks ?
+        this.context.artistTopTracks.map((result, idx) => {
             if (idx < 5) {
                 return (
                     <a href={result.external_urls.spotify}
@@ -24,7 +25,7 @@ class TopTracks extends React.Component {
                     </a>
                 )
             }
-        })
+        }) : 'not found'
    
         return (
             <div className='details-slice'>

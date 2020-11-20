@@ -21,11 +21,12 @@ class Albums extends React.Component {
     static contextType = AppContext;
 
     render() {
-        let { artistAlbums } = this.context;
+        // let { artistAlbums } = this.context;
         
         //for each album stored in context, 
         // grab the album image and title and pass to <AlbumResultCard />
-        let resultsArray = artistAlbums.map(album => {
+        let resultsArray = this.context.artistAlbums ?
+            this.context.artistAlbums.map(album => {
             let albumImg = album.images[0].url;
             let albumTitle = album.name;
             let externalURL = album.external_urls.spotify;
@@ -40,7 +41,8 @@ class Albums extends React.Component {
                     />
                 </a>
             )
-        })
+        }) 
+        : 'not found'
 
         
         return (

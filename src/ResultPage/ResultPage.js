@@ -5,6 +5,8 @@ import Albums from './Albums';
 import RelatedArtists from './RelatedArtists';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import { AppContext } from '../Context/AppContext';
+import { withRouter } from 'react-router-dom';
+import PageNotFound from '../SearchPage/PageNotFound'
 
 import './css/resultpage.css';
 
@@ -13,6 +15,11 @@ class ResultsPage extends React.Component {
   static contextType = AppContext;
 
   render() {
+    
+    if (this.context.selectedArtistCardData === null) {
+      return <PageNotFound />
+    }
+
     const { selectedArtistCardData } = this.context;
     const {name, genres, images} = selectedArtistCardData;
 
@@ -46,10 +53,10 @@ class ResultsPage extends React.Component {
         </div>
 
       </div>
-    );
+    )};
   }
-}
 
 
 
-export default ResultsPage;
+
+export default withRouter(ResultsPage);

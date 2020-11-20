@@ -9,7 +9,8 @@ class RelatedArtists extends React.Component {
     static contextType = AppContext;
 
     render() {
-        let results = this.context.artistRelatedArtists.map((result, idx) => {
+        let results = this.context.artistRelatedArtists ?
+        this.context.artistRelatedArtists.map((result, idx) => {
             if (idx < 5) {
                 return (
                     <a href={result.external_urls.spotify}
@@ -24,7 +25,7 @@ class RelatedArtists extends React.Component {
                     </a>
                 )
             }
-        })
+        }) : 'not found'
 
         return (
             <div className='details-slice'>
