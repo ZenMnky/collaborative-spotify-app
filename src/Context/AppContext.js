@@ -33,7 +33,7 @@ export class Provider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      access_token: 'BQC7dPxqihhlma9dbD19d2bFIVaf_zaTy21Xdjntdj2gkntotKm_s3NW-1tC7HcygUIeZ1ckPHmnHmkqums',
+      access_token: '',
       error: null,
       artistOptions: null,
       selectedArtistCardData: null, //props for the artist card on the results page
@@ -55,7 +55,7 @@ export class Provider extends Component {
   //replace with new token
 
   handleGetAuthToken = () => {
-    fetch(API_TOKEN_URL, {
+    return fetch(API_TOKEN_URL, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -93,7 +93,7 @@ export class Provider extends Component {
     //using the search endpoint and a given query,
     // fetch data (array of objects) and store in local state (in artistResults)
 
-    fetch(API_BASE + `/search?q=${artistQuery}&type=artist`, {
+    return fetch(API_BASE + `/search?q=${artistQuery}&type=artist`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -130,17 +130,16 @@ export class Provider extends Component {
   //albums
 
 
-
   handleFetchArtistAlbums = (id) => {
 
-    fetch(API_BASE + `/artists/${id}/albums?market=US&limit=5`, {
+    return fetch(API_BASE + `/artists/${id}/albums?market=US&limit=5`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.state.access_token}`
       }
-    })
+    }) 
       .then(res => {
         //if not okay, throw error
         if (!res.ok) {
@@ -161,7 +160,7 @@ export class Provider extends Component {
 
 
   handleFetchArtistTopTracks = (id) => {
-    fetch(API_BASE + `/artists/${id}/top-tracks?market=US`, {
+    return fetch(API_BASE + `/artists/${id}/top-tracks?market=US`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -188,7 +187,7 @@ export class Provider extends Component {
   }
 
   handleFetchRelatedArtists = (id) => {
-    fetch(API_BASE + `/artists/${id}/related-artists?market=US`, {
+    return fetch(API_BASE + `/artists/${id}/related-artists?market=US`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -209,9 +208,23 @@ export class Provider extends Component {
         this.setState({
           artistRelatedArtists: relatedArtistResults.artists
         });
+        
       })
       //catch errors
       .catch(error => this.setState({ error }))
+  }
+
+  updateSelectedArtistCardData = (artistCardStuff)  => {
+    this.setState({
+      selectedArtistCardData: artistCardStuff
+    })
+
+  }
+
+  handleResults = (id) => {
+    this.handleFetchArtistAlbums(id);
+    this.handleFetchArtistTopTracks(id);
+    this.handleFetchRelatedArtists(id);
   }
 
   testContext = () => {
@@ -233,7 +246,8 @@ render(){
     handleFetchArtistAlbums: this.handleFetchArtistAlbums,
     handleFetchArtistTopTracks: this.handleFetchArtistTopTracks,
     handleFetchRelatedArtists: this.handleFetchRelatedArtists,
-    testContext: this.testContext
+    handleResults: this.handleResults,
+    updateSelectedArtistCardData: this.updateSelectedArtistCardData
   }
 
   return (

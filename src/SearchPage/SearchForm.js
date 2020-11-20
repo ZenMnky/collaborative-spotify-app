@@ -43,11 +43,6 @@ handleSubmit = (e) => {
 
   render() {
     const errorMessage = this.validateSearch();
-
-    const { handleFetchArtistTopTracks, 
-        handleFetchArtistAlbums, 
-        handleFetchRelatedArtists 
-    } = this.context;
     
     return (
         //call search request on submit
