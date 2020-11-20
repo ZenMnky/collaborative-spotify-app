@@ -2,3 +2,12 @@ header {
     height: 100px;
     padding: 10px;
 }
+
+/* remove default */
+header h1 {
+    margin: 0,
+}
+
+header a {
+    text-decoration: none;
+}

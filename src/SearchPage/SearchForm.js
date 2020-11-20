@@ -1,10 +1,13 @@
 // returns form and handles our initial FETCH to get artist lists
-
 import React from 'react';
-import './css/searchform.css';
+import { AppContext, Consumer } from '../Context/AppContext';
 import ValidationError from './ValidationError';
+import './css/searchform.css';
 
 class SearchForm extends React.Component {
+
+    static contextType = AppContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -27,36 +30,53 @@ validateSearch = () => {
     }
 }
 
+handleSubmit = (e) => {
+    e.preventDefault();
+    this.context.handleSearchArtist(
+        this.state.searchTerm
+    );
+    this.setState({
+        searchTerm: '',
+        touched: false
+    })
+}
+
   render() {
     const errorMessage = this.validateSearch();
-
+    
     return (
         //call search request on submit
-      <form onSubmit={() => alert(this.state.searchTerm)}>
-          <fieldset>
+            <form onSubmit={(e) => this.handleSubmit(e)}>
+                <fieldset>
 
-              <legend>Artist Name</legend>
+                    <legend>Artist Name</legend>
 
-          <ValidationError message={errorMessage}
-          touched={this.state.touched}/>
+                    <ValidationError message={errorMessage}
+                    touched={this.state.touched}/>
 
-          <input 
-          type='text' 
-          name='search-term' 
-          id='search-term'
-          placeholder='Cake'
-          value={this.state.searchTerm}
-          onChange={(e) => this.updateSearchTerm(e.target.value)}
-          >
-          </input>
+                    <input 
+                        type='text' 
+                        name='search-term' 
+                        id='search-term'
+                        placeholder='Cake'
+                        value={this.state.searchTerm}
+                        onChange={(e) => this.updateSearchTerm(e.target.value)}
+                    />
+                    
+                    <button 
+                        type='submit'
+                        disabled={this.validateSearch()}
+                    >
+                        Search
+                    </button>
 
-          <button type='submit'
-          disabled={this.validateSearch()}
-          >Search</button>
+                
 
-          </fieldset>
-      </form>
-    );
+                </fieldset>
+            
+
+            </form>
+    )
   }
 }
 

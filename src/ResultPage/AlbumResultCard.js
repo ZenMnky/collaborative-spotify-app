@@ -1,17 +1,17 @@
 // returns small lil card div with image and text below it. each card will ideally be a link
 
 import React from 'react';
+import cuid from 'cuid';
 import './css/resultcard.css';
 
-class ResultCard extends React.Component {
+class AlbumResultCard extends React.Component {
     render() {
-        const { image, name } = this.props;
+        const { image, name, externalURL } = this.props;
         return (
-            <div className='result-card'>
-
+            <div key={cuid()} className='result-card'>
+               
                 <img src={image} alt='result-card-img' />
-
-
+               
                 <p>{name}</p>
 
             </div>
@@ -19,4 +19,4 @@ class ResultCard extends React.Component {
     }
 }
 
-export default ResultCard;
+export default AlbumResultCard;

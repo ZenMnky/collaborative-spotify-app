@@ -1,40 +1,63 @@
 // returns LIST of artist cards, which are clickable. clicking triggers subsequent fetch calls (artist, albums, shows) using id
 
 import React from 'react';
-import {AppContext} from '../Context/AppContext';
+import { AppContext } from '../Context/AppContext';
 import './css/artistlist.css';
 import ArtistCard from './ArtistCard';
+import { withRouter } from 'react-router-dom';
 
 class ArtistList extends React.Component {
     static contextType = AppContext;
 
+    handleClick = (id, name, artistCardStuff) => {
+        console.log(name, id);
+
+        const {
+            updateSelectedArtistCardData,
+            handleFetchArtistAlbums,
+            handleFetchArtistTopTracks,
+            handleFetchRelatedArtists
+        } = this.context;
+
+        updateSelectedArtistCardData(artistCardStuff);
+
+        // promise.all to make all the fetch calls, 
+        // then push to results page with artist name as dynamic path part?
+        Promise.all([
+            handleFetchArtistAlbums(id),
+            handleFetchArtistTopTracks(id),
+            handleFetchRelatedArtists(id)
+        ]).then(() => this.props.history.push(`/result/${name}`))
+    }
+
     render() {
-        const {artistOptions} = this.context;
+        const { artistOptions } = this.context;
 
-        const artists = artistOptions 
-        ?
-        artistOptions.map(artist => {
-            return <ArtistCard
-                handleClick={() => alert(artist.id)} 
-                //^ call the fn() to fetch to rest of the artist info, using artist id
-                id={artist.id}
-                name={artist.name}
-                genre={artist.genres[0]}
-                image={artist.images.length > 0 ? 
-                    artist.images[0].url 
-                    : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}
-            />
-        }) : '';
+        const artists = artistOptions
+            ?
+            artistOptions.map(artist => {
+                return <ArtistCard
+                    handleClick={(e) => this.handleClick(artist.id, artist.name, artist)}
+                    //^ call the fn() to fetch to rest of the artist info, using artist id
+                    key={artist.id}
+                    id={artist.id}
+                    name={artist.name}
+                    genre={artist.genres[0]}
+                    image={artist.images.length > 0 ?
+                        artist.images[0].url
+                        : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}
+                />
+            }) : '';
 
-        const list = 
-        artistOptions 
-        ?
-        <div className='artist-list'>
-            Did you mean...
+        const list =
+            artistOptions
+                ?
+                <div className='artist-list'>
+                    Did you mean...
             {artists}
-            </div>
-        : 
-        <></>
+                </div>
+                :
+                <></>
 
         return (
             list
@@ -42,4 +65,4 @@ class ArtistList extends React.Component {
     }
 }
 
-export default ArtistList;
+export default withRouter(ArtistList);

@@ -3,6 +3,7 @@ import './css/searchpage.css';
 import SearchForm from './SearchForm';
 import ArtistList from '../ArtistCardandList/ArtistList';
 import {Consumer, AppContext} from '../Context/AppContext';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 
 class SearchPage extends React.Component {
@@ -27,7 +28,10 @@ class SearchPage extends React.Component {
           return(
             <div className='search-page'>
               <SearchForm />
+              
+              <ErrorBoundary>
               <ArtistList />
+              </ErrorBoundary>
           </div>      
           )
         }}
