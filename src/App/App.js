@@ -21,17 +21,15 @@ class App extends React.Component {
 
   componentDidMount() {
     this.context.handleGetAuthToken();
-    console.log('app did mount');
   }
 
   render() {
 
-    console.log(this.context);
 
     return (
       <div className="App">
         <Header />
-      
+        <button onClick={this.context.handleSearchArtist}>CLICK ME!</button>
         <Main>
           <Switch>
             <Route exact path='/' component={SearchPage} />

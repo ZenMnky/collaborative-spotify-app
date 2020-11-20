@@ -8,6 +8,12 @@ import ArtistCard from './ArtistCard';
 class ArtistList extends React.Component {
     static contextType = AppContext;
 
+    handleClick = (id, name) => {
+        alert(id)
+        // promise.all to make all the fetch calls, 
+        // then push to results page with artist name as dynamic path part?
+    }
+
     render() {
         const {artistOptions} = this.context;
 
@@ -15,7 +21,7 @@ class ArtistList extends React.Component {
         ?
         artistOptions.map(artist => {
             return <ArtistCard
-                handleClick={() => alert(artist.id)} 
+                handleClick={(e) => this.handleClick(artist.id, artist.name)} 
                 //^ call the fn() to fetch to rest of the artist info, using artist id
                 key={artist.id}
                 id={artist.id}
