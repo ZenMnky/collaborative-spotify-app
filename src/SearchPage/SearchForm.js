@@ -1,8 +1,10 @@
 // returns form and handles our initial FETCH to get artist lists
+
 import React from 'react';
-import { AppContext, Consumer } from '../Context/AppContext';
-import ValidationError from './ValidationError';
+import { AppContext } from '../Context/AppContext';
 import './css/searchform.css';
+import ValidationError from './ValidationError';
+
 
 class SearchForm extends React.Component {
 
@@ -51,8 +53,10 @@ handleSubmit = (e) => {
 
                     <legend>Artist Name</legend>
 
-                    <ValidationError message={errorMessage}
-                    touched={this.state.touched}/>
+                    <ValidationError 
+                        message={errorMessage}
+                        touched={this.state.touched}
+                    />
 
                     <input 
                         type='text' 
@@ -69,12 +73,7 @@ handleSubmit = (e) => {
                     >
                         Search
                     </button>
-
-                
-
                 </fieldset>
-            
-
             </form>
     )
   }

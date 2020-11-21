@@ -1,16 +1,18 @@
-// returns LIST of artist cards, which are clickable. clicking triggers subsequent fetch calls (artist, albums, shows) using id
+// returns LIST of artist cards, which are clickable. 
+// clicking triggers subsequent fetch calls (artist, albums, shows) using id
 
 import React from 'react';
-import { AppContext } from '../Context/AppContext';
-import './css/artistlist.css';
-import ArtistCard from './ArtistCard';
 import { withRouter } from 'react-router-dom';
+import { AppContext } from '../Context/AppContext';
+
+import './css/artistlist.css';
+
+import ArtistCard from './ArtistCard';
 
 class ArtistList extends React.Component {
     static contextType = AppContext;
 
     handleClick = (id, name, artistCardStuff) => {
-        console.log(name, id);
 
         const {
             updateSelectedArtistCardData,
@@ -22,7 +24,7 @@ class ArtistList extends React.Component {
         updateSelectedArtistCardData(artistCardStuff);
 
         // promise.all to make all the fetch calls, 
-        // then push to results page with artist name as dynamic path part?
+        // then push to results page with artist name as dynamic path part
         Promise.all([
             handleFetchArtistAlbums(id),
             handleFetchArtistTopTracks(id),
@@ -32,6 +34,9 @@ class ArtistList extends React.Component {
 
     render() {
         const { artistOptions } = this.context;
+
+        // Ternary operators used to aid in the loading process
+        // without, the component will try to render prior to having the required data
 
         const artists = artistOptions
             ?
@@ -52,12 +57,12 @@ class ArtistList extends React.Component {
         const list =
             artistOptions
                 ?
-                <div className='artist-list'>
-                    Did you mean...
-            {artists}
-                </div>
+                    <div className='artist-list'>
+                        Did you mean...
+                        {artists}
+                    </div>
                 :
-                <></>
+                    <></>
 
         return (
             list

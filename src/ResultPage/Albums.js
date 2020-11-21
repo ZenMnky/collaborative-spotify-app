@@ -2,14 +2,11 @@
 
 /**
  * NOTE:
- * When we do a fetch for albums, we'll want to specify the 'market': market=US
+ * When we do a fetch for albums, specify the 'market': market=US
  * Otherwise, we'll get duplicate album listings
- * --Basically, there tends to be albums specific to New Zeland :-\
- * 
- * I'll update the dummy data with such a call.....
+ * --There tends to be album versions specific to New Zeland :-\
  * 
  */
-
 
 
 import React from 'react';
@@ -21,28 +18,33 @@ class Albums extends React.Component {
     static contextType = AppContext;
 
     render() {
-        // let { artistAlbums } = this.context;
-        
+
         //for each album stored in context, 
         // grab the album image and title and pass to <AlbumResultCard />
-        let resultsArray = this.context.artistAlbums ?
-            this.context.artistAlbums.map(album => {
-            let albumImg = album.images[0].url;
-            let albumTitle = album.name;
-            let externalURL = album.external_urls.spotify;
+        let resultsArray = 
+            this.context.artistAlbums 
+                ? this.context.artistAlbums.map(album => {
+                    let albumImg = album.images[0].url;
+                    let albumTitle = album.name;
+                    let externalURL = album.external_urls.spotify;
 
-            return(
-                <a href={externalURL} target='_blank'>
-                    <AlbumResultCard 
-                        key={albumTitle}
-                        image={albumImg} 
-                        name={albumTitle} 
-                        externalURL={externalURL}
-                    />
-                </a>
-            )
-        }) 
-        : 'not found'
+                    return(
+                        <a 
+                            key={cuid()} 
+                            href={externalURL} 
+                            target='_blank' 
+                            rel="noreferrer"
+                        >
+                            <AlbumResultCard 
+                                key={albumTitle}
+                                image={albumImg} 
+                                name={albumTitle} 
+                                externalURL={externalURL}
+                            />
+                        </a>
+                    )
+                }) 
+                : 'not found'
 
         
         return (

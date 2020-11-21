@@ -1,6 +1,7 @@
 // returns div with the related artists (limit 5?) using results cards
 
 import React from 'react';
+import cuid from 'cuid';
 import { AppContext } from '../Context/AppContext';
 import ResultCard from './ResultCard';
 
@@ -13,9 +14,12 @@ class RelatedArtists extends React.Component {
         this.context.artistRelatedArtists.map((result, idx) => {
             if (idx < 5) {
                 return (
-                    <a href={result.external_urls.spotify}
-                    target='_blank'
-                    rel="noreferrer">
+                    <a 
+                        href={result.external_urls.spotify}
+                        target='_blank'
+                        rel="noreferrer"
+                        key={cuid()}
+                    >
                         <ResultCard
                             key={idx}
                             name={result.name}

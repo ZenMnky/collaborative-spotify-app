@@ -7,21 +7,30 @@ import './css/artistcard.css'
 class ArtistCard extends React.Component {
     render() {
         
-        const handleClick = this.props.handleClick ?
-        this.props.handleClick : null;
+        const handleClick = 
+            this.props.handleClick
+                ? this.props.handleClick 
+                : null;
 
         const {name, id, genre, image} = this.props;
         
         return (
-            <div key={id} onClick={handleClick}
-            className='artist-card'>
+            <div 
+                key={id} 
+                onClick={handleClick}
+                className='artist-card'
+            >
 
-            <img src={image} width='100px' alt='artist-card-img' />
+                <img 
+                    src={image} 
+                    width='100px' 
+                    alt='artist-card-img' 
+                />
 
-            <div className='name-genre'>
-            <p>{name}</p>
-            <p><i>{genre}</i></p>
-            </div>
+                <div className='name-genre'>
+                    <p>{name}</p>
+                    <p><i>{genre}</i></p>
+                </div>
 
             </div>
         )

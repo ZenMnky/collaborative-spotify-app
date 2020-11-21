@@ -5,12 +5,11 @@ class ValidationError extends React.Component {
     render() {
         const message = 
         this.props.message && this.props.touched
-            ?
-           this.props.message
+            ? this.props.message
             : ''
         return (
             <div className='validation'>
-            {message}
+                {message}
             </div>
         )
     }
