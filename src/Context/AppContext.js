@@ -1,33 +1,19 @@
 import React, { Component } from 'react';
-// import cuid from 'cuid';
 import PropTypes from 'prop-types';
-import BASE64 from '../config.js'
-import { dummyItems } from './dummyItems'; //artist options
-import { dummyAlbums } from './dummyAlbums';
-import { dummyTopTracks } from './dummyTopTracks';
-import { dummyRelatedArtists } from './dummyRelatedArtists';
+import BASE64 from '../config.js';
 
-export const AppContext = React.createContext();
-
-/**
+/*******************************************************************
  * API
  * API Docs: 
  * SEARCH FOR ITEM: https://developer.spotify.com/documentation/web-api/reference/search/search/
  * GET ARTIST : https://developer.spotify.com/console/artists/
- */
-
+ *******************************************************************/
 const API_BASE = 'https://api.spotify.com/v1';
 const API_TOKEN_URL = 'https://accounts.spotify.com/api/token';
-const colterWallID = '3xYXYzm9H3RzyQgBrYwIcx';
 
-// fetch for search = {API_BASE}/search?q=bob&type=artist&offset=20&limit=2
-//fetches for artist = {API_BASE}/artists/{id}
-// 	{API_BASE}/artists/{id}/related-artists
-// 	{API_BASE}/artists/{id}/top-tracks?m
-// 	{API_BASE}/artists/{id}/albums
+/*=====  End of API  ======*/
 
-// "Authorization: Bearer"
-
+export const AppContext = React.createContext();
 
 export class Provider extends Component {
   constructor(props) {
@@ -43,16 +29,14 @@ export class Provider extends Component {
     }
   }
 
-  //🚧 CONSTRUCTION ZONE 🚧
-
-  //STEP 1
-  //obtain authorization from spotify
-  //receive object, which includes our token
-  //store token in state
-
-  //token expires in 3600 seconds
-  //set timer to make a call for a new auth token
-  //replace with new token
+  
+  /*=============================================
+    STEP 1
+    - obtain authorization from spotify
+    - receive object, which includes our token
+    - store token in state
+      - Note: token expires after 3600 seconds
+  =============================================*/
 
   handleGetAuthToken = () => {
     return fetch(API_TOKEN_URL, {
@@ -84,9 +68,10 @@ export class Provider extends Component {
 
   }
 
-  //STEP 2
-  //Party : make calls all day (well, for 1 hour, untill we need to get a new token)
-
+  /*=============================================
+    STEP 2
+    Fetch initial artist infomration, based on search term
+  =============================================*/
 
   handleSearchArtist = (artistQuery) => {
     //Initial Call
@@ -114,6 +99,7 @@ export class Provider extends Component {
         this.setState({
           artistOptions: artistResults.artists.items
         });
+        
       })
       //catch errors
       .catch(error => this.setState({
@@ -122,14 +108,19 @@ export class Provider extends Component {
       )
   }
 
-  //When an artist is selected from the card options
-  //grab the artist ID
-  //Make a fetch for the remaining data
-  //top tracks
-  //related artists
-  //albums
-
-
+  
+  
+  /*=============================================
+  STEP 3
+  - When an artist is selected from the card options,
+    grab the artist ID
+  - Make a fetch for each of the remaining data:
+    - top tracks
+    - related artists
+    - albums
+  =============================================*/
+  
+  // Fetch 5 albums, limited to the US market
   handleFetchArtistAlbums = (id) => {
 
     return fetch(API_BASE + `/artists/${id}/albums?market=US&limit=5`, {
@@ -158,7 +149,7 @@ export class Provider extends Component {
       .catch(error => this.setState({ error }))
   }
 
-
+  // Fetch Top Tracks, limited to US market
   handleFetchArtistTopTracks = (id) => {
     return fetch(API_BASE + `/artists/${id}/top-tracks?market=US`, {
       method: 'GET',
@@ -186,6 +177,7 @@ export class Provider extends Component {
       .catch(error => this.setState({ error }))
   }
 
+  // Fetch related artists, limited to US market
   handleFetchRelatedArtists = (id) => {
     return fetch(API_BASE + `/artists/${id}/related-artists?market=US`, {
       method: 'GET',
@@ -214,6 +206,10 @@ export class Provider extends Component {
       .catch(error => this.setState({ error }))
   }
 
+  /*=====  End of Fetch Requests  ======*/
+  
+  
+  // Handle state update
   updateSelectedArtistCardData = (artistCardStuff)  => {
     this.setState({
       selectedArtistCardData: artistCardStuff
@@ -221,24 +217,8 @@ export class Provider extends Component {
 
   }
 
-  handleResults = (id) => {
-    this.handleFetchArtistAlbums(id);
-    this.handleFetchArtistTopTracks(id);
-    this.handleFetchRelatedArtists(id);
-  }
-
-  testContext = () => {
-    console.log('context connected!')
-  }
-
-  //🚧 CONSTRUCTION ZONE 🚧
-
-componentDidMount = () => {
-
-}
-
-
 render(){
+
   const contextValues = {
     ...this.state,
     handleSearchArtist: this.handleSearchArtist,
@@ -246,7 +226,6 @@ render(){
     handleFetchArtistAlbums: this.handleFetchArtistAlbums,
     handleFetchArtistTopTracks: this.handleFetchArtistTopTracks,
     handleFetchRelatedArtists: this.handleFetchRelatedArtists,
-    handleResults: this.handleResults,
     updateSelectedArtistCardData: this.updateSelectedArtistCardData
   }
 
@@ -263,6 +242,3 @@ Provider.propTypes = {
 }
 
 export const { Consumer } = AppContext;
-
-
-

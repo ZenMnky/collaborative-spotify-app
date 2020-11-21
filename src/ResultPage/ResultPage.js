@@ -1,13 +1,15 @@
+// dependencies
 import React from 'react';
+import { AppContext } from '../Context/AppContext';
+import { withRouter } from 'react-router-dom';
+// components
 import ArtistCard from '../ArtistCardandList/ArtistCard';
 import TopTracks from './TopTracks';
 import Albums from './Albums';
 import RelatedArtists from './RelatedArtists';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import { AppContext } from '../Context/AppContext';
-import { withRouter } from 'react-router-dom';
 import PageNotFound from '../SearchPage/PageNotFound'
-
+// css
 import './css/resultpage.css';
 
 class ResultsPage extends React.Component {
@@ -30,6 +32,7 @@ class ResultsPage extends React.Component {
           <ArtistCard
             name={name}
             genre={genres[0]}
+            // if no artist image is available, retunrn a placeholer image
             image={images.length > 0 ?
               images[0].url
               : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}
