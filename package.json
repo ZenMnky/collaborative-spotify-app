@@ -2,7 +2,7 @@
   "name": "justin-jenna-music-app",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://ZenMnky.io/collaborative-spotify-app",
+  "homepage": "https://ZenMnky.github.io/collaborative-spotify-app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
