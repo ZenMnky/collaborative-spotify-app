@@ -1,5 +1,7 @@
 # Artist Search App
-Collaborative web application designed, planned, and built by [Jenna Chestnut](https://github.com/jenna-chestnut/) and [Justin Hager](https://github.com/ZenMnky/) as an extracurricular project during a 'catchup week' in Thinkful's Software Engineering Immersion Program.
+Collaborative web application designed, planned, and built by [Jenna Chestnut](https://github.com/jenna-chestnut/) and [Justin Hager](https://github.com/ZenMnky/) as an extracurricular project during a 'catchup week' in Thinkful's Software Engineering Immersion Program.  
+
+[Live link](https://justin-jenna-music-app.vercel.app/)
 
 ## Description
 Frontend web application built with React.js that connects to Spotify's API.
