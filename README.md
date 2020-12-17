@@ -1,10 +1,11 @@
 # Artist Search App
-_By Jenna and Justin_
+Collaborative web application designed, planned, and built by [Jenna Chestnut](https://github.com/jenna-chestnut/) and [Justin Hager](https://github.com/ZenMnky/) as an extracurricular project during a 'catchup week' in Thinkful's Software Engineering Immersion Program.
 
 ## Description
-A beautiful, heartwarming, and rousing description - coming soon 😁
+Frontend web application built with React.js that connects to Spotify's API.
+Allows user to search artists by a term, select from a list of results, and view an artist profile with top tracks, top albums, and related artists.
+
 ## Technologies
 React, JS, HTML, CSS
 
-### Acknowledgements
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
