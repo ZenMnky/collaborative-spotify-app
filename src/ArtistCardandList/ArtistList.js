@@ -2,7 +2,7 @@
 // clicking triggers subsequent fetch calls (artist, albums, shows) using id
 
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { AppContext } from '../Context/AppContext';
 
 import './css/artistlist.css';
@@ -41,17 +41,18 @@ class ArtistList extends React.Component {
         const artists = artistOptions
             ?
             artistOptions.map(artist => {
-                return <ArtistCard
-                    handleClick={(e) => this.handleClick(artist.id, artist.name, artist)}
-                    //^ call the fn() to fetch to rest of the artist info, using artist id
-                    key={artist.id}
-                    id={artist.id}
-                    name={artist.name}
-                    genre={artist.genres[0]}
-                    image={artist.images.length > 0 ?
-                        artist.images[0].url
-                        : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}
-                />
+                return <Link to='' >
+                    <ArtistCard
+                        handleClick={(e) => this.handleClick(artist.id, artist.name, artist)}
+                        //^ call the fn() to fetch to rest of the artist info, using artist id
+                        key={artist.id}
+                        id={artist.id}
+                        name={artist.name}
+                        genre={artist.genres[0]}
+                        image={artist.images.length > 0 ?
+                            artist.images[0].url
+                            : 'http://truecontractors.ca/wp-content/uploads/2016/05/ds-placeholder-person.jpg'}
+                    /></Link>
             }) : '';
 
         const list =
