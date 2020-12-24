@@ -4,6 +4,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { AppContext } from '../Context/AppContext';
+import cuid from 'cuid';
 
 import './css/artistlist.css';
 
@@ -41,7 +42,7 @@ class ArtistList extends React.Component {
         const artists = artistOptions
             ?
             artistOptions.map(artist => {
-                return <Link to='' >
+                return <Link to='' key={cuid()}>
                     <ArtistCard
                         handleClick={(e) => this.handleClick(artist.id, artist.name, artist)}
                         //^ call the fn() to fetch to rest of the artist info, using artist id
