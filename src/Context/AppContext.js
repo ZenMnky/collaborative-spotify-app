@@ -217,6 +217,17 @@ export class Provider extends Component {
 
   }
 
+  // Clear artist information in state
+  clearArtistState = () => {
+    this.setState({
+      artistOptions: null,
+      selectedArtistCardData: null, //props for the artist card on the results page
+      artistAlbums: null,
+      artistTopTracks: null,
+      artistRelatedArtists: null
+    })
+  }
+
 render(){
 
   const contextValues = {
@@ -226,7 +237,8 @@ render(){
     handleFetchArtistAlbums: this.handleFetchArtistAlbums,
     handleFetchArtistTopTracks: this.handleFetchArtistTopTracks,
     handleFetchRelatedArtists: this.handleFetchRelatedArtists,
-    updateSelectedArtistCardData: this.updateSelectedArtistCardData
+    updateSelectedArtistCardData: this.updateSelectedArtistCardData,
+    clearArtistState: this.clearArtistState
   }
 
   return (

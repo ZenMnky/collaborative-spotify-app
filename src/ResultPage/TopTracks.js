@@ -3,7 +3,7 @@
 import React from 'react';
 import { AppContext } from '../Context/AppContext';
 import ResultCard from './ResultCard';
-
+import cuid from 'cuid';
 
 class TopTracks extends React.Component {
     static contextType = AppContext;
@@ -15,7 +15,9 @@ class TopTracks extends React.Component {
                 return (
                     <a href={result.external_urls.spotify}
                     target='_blank'
-                    rel="noreferrer">
+                    rel="noreferrer"
+                    key={cuid()}
+                    >
                         <ResultCard
                             key={idx}
                             name={result.name}
